@@ -21,7 +21,7 @@
 - Instale as dependências
 
   ```
-    npm isntall
+    npm install
   ```
 
 - Execute a aplicação
