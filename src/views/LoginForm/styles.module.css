@@ -1,0 +1,36 @@
+.loginFormContainer {
+  background: white;
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column; */
+  padding: 10rem 5.875rem;
+}
+
+.title {
+  color: #696F79;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 4rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link {
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.MuiButton-contained {
+  background-color: #21409A !important;
+}

@@ -1,0 +1,12 @@
+.loginPage {
+  background-color: #21409A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 96px;
+
+  >img {
+    width: 368px;
+    height: 520px;
+  }
+}
