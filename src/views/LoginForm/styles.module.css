@@ -14,7 +14,7 @@
   text-align: center;
 }
 
-.text {
+.subtitle {
   text-align: center;
   font-weight: 400;
   margin-bottom: 4rem;
@@ -33,4 +33,12 @@
 
 .MuiButton-contained {
   background-color: #21409A !important;
+}
+
+.text {
+  margin-top: 34px;
+}
+
+.highlightedText {
+  color: #FE4900;
 }
