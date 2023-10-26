@@ -5,7 +5,7 @@ export function LoginForm() {
   return (
     <div className={styles.loginFormContainer}>
       <h1 className={styles.title}>Bem vindo!</h1>
-      <p className={styles.text}>Ficamos felizes em ajudar.</p>
+      <p className={styles.subtitle}>Ficamos felizes em ajudar.</p>
       <form action='' className={styles.form}>
         <TextField
           label="Email"
@@ -24,10 +24,13 @@ export function LoginForm() {
         <a className={styles.link}>
           Esqueceu sua senha?
         </a>
-        <Button variant='contained' className={styles['MuiButton-contained']}>
+        <Button href='/home' variant='contained' className={styles['MuiButton-contained']}>
           Entrar
         </Button>
       </form>
+      <p className={styles.text}>
+        Ainda não possui uma conta? <span className={styles.highlightedText}>Cadastre-se aqui.</span>
+      </p>
     </div>
   )
 }
