@@ -1,12 +1,12 @@
 import { LoginForm } from "../../views/LoginForm/index.jsx";
 import { Cover } from "../../components/Cover/index.jsx";
-import styles from './styles.module.css'
+import { Wrapper } from "../../components/Wrapper/index.jsx";
 
 export function Login() {
   return (
-    <section className={styles.loginContainer}>
+    <Wrapper>
       <Cover />
       <LoginForm />
-    </section>
+    </Wrapper>
   )
 }

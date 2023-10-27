@@ -1,0 +1,15 @@
+.leftWrapper {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  box-sizing: border-box;
+}
+
+.rightWrapper {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  box-sizing: border-box;
+}
