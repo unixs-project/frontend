@@ -1,9 +1,19 @@
+import { useNavigate } from "react-router";
 import { Button, TextField } from "@mui/material";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+
 import styles from './styles.module.css'
 
 export function RecoverPasswordForm() {
+  const navigate = useNavigate()
+
+  const handleRedirectToLogin = () => {
+    navigate('/')
+  }
+
   return (
-    <div className={styles.resetPasswordFormContainer}>
+    <div className={styles.resetPasswordFormContainer}>      
+      <ArrowBackOutlinedIcon onClick={handleRedirectToLogin} style={{cursor: 'pointer'}}/>
       <h1 className={styles.title}>Alterar senha</h1>
       <p className={styles.subtitle}>A sua senha deve conter pelo menos uma letra maiúscula e no mínimo 5 caracteres.</p>
       <form className={styles.form}>
@@ -25,9 +35,6 @@ export function RecoverPasswordForm() {
           Cadastrar nova senha
         </Button>
       </form>
-      <Button href='/' variant='outlined' style={{border: '1px solid #21409A', color: '#21409A'}}>
-        Retornar ao login
-      </Button>
     </div>
   )
 }

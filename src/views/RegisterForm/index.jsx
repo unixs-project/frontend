@@ -1,11 +1,19 @@
+import { useNavigate } from 'react-router';
 import { Button, TextField } from '@mui/material'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+
 import styles from './styles.module.css'
 
 export function RegisterForm() {
+  const navigate = useNavigate()
+
+  const handleRedirectToLogin = () => {
+    navigate('/')
+  }
+
   return (
     <div className={styles.registerFormContainer}>
-      <ArrowBackOutlinedIcon />
+      <ArrowBackOutlinedIcon onClick={handleRedirectToLogin} style={{cursor: 'pointer'}}/>
       <h1 className={styles.title}>Cadastro</h1>
       <p className={styles.subtitle}>Preencha os campos abaixo com as informações solicitadas.</p>
       <form action='' className={styles.form}>
