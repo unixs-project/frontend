@@ -21,16 +21,16 @@ export function LoginForm() {
           variant="standard"
           margin='dense'
         />
-        <a className={styles.link}>
+        <a href='/recover-password' className={styles.link}>
           Esqueceu sua senha?
         </a>
-        <Button href='/home' variant='contained' className={styles['MuiButton-contained']}>
+        <Button href='/home' variant='contained' style={{backgroundColor: '#21409A', marginBottom: '24px'}}>
           Entrar
         </Button>
       </form>
-      <p className={styles.text}>
+      <a href="/register" className={styles.text}>
         Ainda não possui uma conta? <span className={styles.highlightedText}>Cadastre-se aqui.</span>
-      </p>
+      </a>
     </div>
   )
 }
