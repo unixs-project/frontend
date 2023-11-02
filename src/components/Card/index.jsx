@@ -1,4 +1,4 @@
-import './card.css'
+import './style.module.css'
 import Button from '@mui/material/Button';
 
 const Card = ({ name, description, teams }) => {
