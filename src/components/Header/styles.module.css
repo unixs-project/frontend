@@ -1,0 +1,17 @@
+.homePage {
+  color: #000000;
+  display: flex;
+  padding-top: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  justify-content: space-between;
+  background-color: white;
+  height: 50px;
+  box-shadow: 1px 2px 5px #a3a2a2;
+
+  > img {
+    width: 35px;
+    height: 35px;
+    justify-content: left;
+  }
+}
