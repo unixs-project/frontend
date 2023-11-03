@@ -1,8 +1,8 @@
 .loginFormContainer {
   background: white;
-  /* display: flex;
+  display: flex;
   justify-content: center;
-  flex-direction: column; */
+  flex-direction: column;
   padding: 10rem 5.875rem;
 }
 
@@ -29,14 +29,19 @@
 .link {
   font-size: 0.8rem;
   margin-bottom: 1rem;
+  text-decoration: none;
 }
 
-.MuiButton-contained {
-  background-color: #21409A !important;
+.link:hover {
+  opacity: 0.8;
 }
 
 .text {
-  margin-top: 34px;
+  text-decoration: none;
+}
+
+.text:hover {
+  opacity: 0.9;
 }
 
 .highlightedText {
