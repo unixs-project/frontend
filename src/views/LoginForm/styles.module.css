@@ -40,6 +40,10 @@
   text-decoration: none;
 }
 
+.text:hover {
+  opacity: 0.9;
+}
+
 .highlightedText {
   color: #FE4900;
 }

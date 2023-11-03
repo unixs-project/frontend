@@ -1,18 +1,44 @@
+import { useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import styles from './styles.module.css'
 
 export function LoginForm() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const emailRegex = /^[A-Z0-9._%+-]+@edu\.unisinos\.br$/i
+  const passwordRegex = /^(?=.*[A-Z]).{6,}$/
+  
+  const isEmailValid = email !== '' && !emailRegex.test(email)
+  const isPasswordValid = password !== '' && !passwordRegex.test(password)
+
+  const handleEmailValidation = (email) => {
+    setEmail(email)
+  }
+
+  const handlePasswordValidation = (password) => {
+    setPassword(password)
+  }
+
+  const handleFormSubmit = () => {
+    e.preventDefault()
+  }
+
   return (
     <div className={styles.loginFormContainer}>
       <h1 className={styles.title}>Bem vindo!</h1>
       <p className={styles.subtitle}>Ficamos felizes em ajudar.</p>
-      <form action='' className={styles.form}>
+      <form action='' className={styles.form} onSubmit={handleFormSubmit}>
         <TextField
           label="Email"
           type="email"
           autoComplete="current-email"
           variant="standard"
           margin='dense'
+          value={email}
+          onChange={(e) => handleEmailValidation(e.target.value)}
+          error={isEmailValid}
+          helperText={isEmailValid ? 'email inválido' : ''}
         />
         <TextField
           label="Senha"
@@ -20,6 +46,10 @@ export function LoginForm() {
           autoComplete="current-password"
           variant="standard"
           margin='dense'
+          value={password}
+          onChange={(e) => handlePasswordValidation(e.target.value)}
+          error={isPasswordValid}
+          helperText={isPasswordValid ? 'senha inválida' : ''}
         />
         <a href='/recover-password' className={styles.link}>
           Esqueceu sua senha?
