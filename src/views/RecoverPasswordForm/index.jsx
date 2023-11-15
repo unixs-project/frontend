@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, TextField } from "@mui/material";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
@@ -5,7 +6,16 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import styles from './styles.module.css'
 
 export function RecoverPasswordForm() {
+  const [password, setPassword] = useState('')
+  
   const navigate = useNavigate()
+
+  const passwordRegex = /^(?=.*[A-Z]).{6,}$/
+  const isPasswordValid = password !== '' && !passwordRegex.test(password)
+
+  const handlePasswordValidation = (password) => {
+    setPassword(password)
+  }
 
   const handleRedirectToLogin = () => {
     navigate('/')
@@ -23,6 +33,10 @@ export function RecoverPasswordForm() {
           autoComplete="current-password"
           variant="standard"
           margin='dense'
+          value={password}
+          onChange={(e) => handlePasswordValidation(e.target.value)}
+          error={isPasswordValid}
+          helperText={isPasswordValid ? 'senha inválida' : ''}
         />
         <TextField
           label="Repita a senha"
