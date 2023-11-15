@@ -1,20 +1,21 @@
-.cardsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 4rem;
-  gap: 2rem;
-  align-items: center;
-  margin-left: 8rem;
-}
-
 .searchContainer{
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 1.875rem;
+  padding-top: 2.25rem;
 }
 
 .searchButtons {
   display: flex;
   gap: 22px;
 }
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 4rem;
+  gap: 2rem;
+  align-items: center;
+  margin: 12rem 0 0 8rem;
+}
+

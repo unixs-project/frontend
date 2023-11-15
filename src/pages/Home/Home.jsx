@@ -5,7 +5,7 @@ import { Search } from "../../components/Search";
 import { FlowData } from "../../services/flowData";
 import styles from './styles.module.css'
 import { TeamData } from "../../services/teamData";
-import { Autocomplete, Button, Stack, TextField } from "@mui/material";
+import { Autocomplete, Button, Stack, TextField, createFilterOptions } from "@mui/material";
 
 export function Home() {
   const [isFlowSearch, setIsFlowSearch] = useState(true)
@@ -58,7 +58,10 @@ export function Home() {
     )
   }
 
-
+  const filterOptions = createFilterOptions({
+    limit: 4
+  });
+  
   return (
     <div>
       <Header />
@@ -84,6 +87,7 @@ export function Home() {
             id="disable-close-on-select"
             disableCloseOnSelect
             options={isFlowSearch ? FlowData.map(flow => flow.name) : TeamData.map(team => team.name)}
+            filterOptions={filterOptions}
             renderInput={(params) => (
               <TextField {...params} label="Fluxos" variant="standard"  style={{width: '100%'}}/>
             )}
