@@ -1,6 +1,7 @@
-import { Autocomplete, Button, TextField } from "@mui/material";
+import { Autocomplete, Button, Stack, TextField } from "@mui/material";
 
 import styles from './styles.module.css'
+import { FlowData } from "../../services/flowData";
 
 export function Search() {
   return(
@@ -9,14 +10,17 @@ export function Search() {
         <Button variant='outlined'>FLuxos</Button>
         <Button variant='outlined'>Equipes</Button>
       </div>
-      <Autocomplete
-        id="disable-close-on-select"
-        disableCloseOnSelect
-        renderInput={(params) => (
-          <TextField label="Fluxos" variant="standard"  style={{width: '100%'}}/>
-        )}
-        style={{width: '435px'}}
-      />
+      <Stack>
+        <Autocomplete
+          id="disable-close-on-select"
+          disableCloseOnSelect
+          options={FlowData.map(card => card.name)}
+          renderInput={(params) => (
+            <TextField {...params} label="Fluxos" variant="standard"  style={{width: '100%'}}/>
+          )}
+          style={{width: '435px'}}
+        />
+      </Stack>
     </div>
   )
 }

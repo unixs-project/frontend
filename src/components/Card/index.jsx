@@ -16,11 +16,9 @@ const Card = ({ name, description, teams }) => {
          style={{ marginBottom: '30px',
           backgroundColor: '#fe4900'
           }}>
-            Ver Mais</Button>
-
-
-    </div>
-
+            Ver Mais
+        </Button>
+        </div>
     )
 }
 

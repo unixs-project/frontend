@@ -46,8 +46,8 @@ export function LoginForm() {
           margin='dense'
           value={email}
           onChange={(e) => handleEmailValidation(e.target.value)}
-          error={!isEmailValid}
-          helperText={!isEmailValid ? 'email inválido' : ''}
+          error={!isEmailValid && email !== ''}
+          helperText={!isEmailValid && email !== '' ? 'email inválido' : ''}
         />
         <TextField
           label='Senha'
@@ -57,8 +57,8 @@ export function LoginForm() {
           margin='dense'
           value={password}
           onChange={(e) => handlePasswordValidation(e.target.value)}
-          error={!isPasswordValid}
-          helperText={!isPasswordValid ? 'senha inválida' : ''}
+          error={!isPasswordValid && password !== ''}
+          helperText={!isPasswordValid && password !== '' ? 'senha inválida' : ''}
         />
         <a href='/recover-password' className={styles.link}>
           Esqueceu sua senha?
