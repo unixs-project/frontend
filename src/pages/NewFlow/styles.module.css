@@ -5,7 +5,21 @@
 .iconsContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.editorContainer {
+  margin-top: 16px;
+  font-size: 1.125rem;
+  > div:focus {
+    outline: none;
+  }
 }
 
 /* .MuiTextField-root {
