@@ -3,7 +3,8 @@ import Button from '@mui/material/Button';
 
 const Card = ({ name, description, teams }) => {
     
-    return (<div className={Styles.card}>
+    return (
+      <div className={Styles.card}>
         <div className={Styles.container}>
             <h3 className={Styles.fluxName}>{name}</h3>        
             <div className={Styles.description}>
@@ -20,8 +21,9 @@ const Card = ({ name, description, teams }) => {
          style={{ marginBottom: '30px',
           backgroundColor: '#fe4900'
           }}>
-            Ver Mais</Button>
-    </div>
+            Ver Mais
+        </Button>
+      </div>
     )
 }
 
