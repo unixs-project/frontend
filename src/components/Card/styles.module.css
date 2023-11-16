@@ -23,19 +23,77 @@
 }
 
 .fluxName {
-    margin: 30px 0 20px 0;
-    display: flex;
-    justify-content: center;
+    max-width: 378px;    
+    margin: 30px 20px 20px 20px;
+    padding: 0 10%;
     font-size: 26px;
+    display: -webkit-box;  
+    -webkit-box-orient: vertical; 
+    overflow: hidden;   
+    -webkit-line-clamp: 1;
 }
 
 .description {
     display: flex;
     flex-direction: column;    
     align-items: center;
-    font-size: 14px;
+    font-size: 14px;    
 }
 
+.information {
+    margin: 5px;
+    padding: 3% 9%;
+}
 
+.information > h5{
+    max-width: 378px;
+    height: fit-content;
+    display: -webkit-box;  
+    -webkit-box-orient: vertical; 
+    overflow: hidden;   
+    -webkit-line-clamp: 3;
+}
 
+.teams {
+    margin: 5px;
+    padding: 3% 9%;
+}
 
+.teams > h5 {
+    max-width: 378px;
+    height: fit-content;
+    display: -webkit-box;  
+    -webkit-box-orient: vertical; 
+    overflow: hidden;   
+    -webkit-line-clamp: 1;
+}
+
+@media (max-width: 450px) {
+    .card {
+      width: 95%;       
+    }
+  
+    .fluxName {
+        max-width: 95%;
+        display: -webkit-box;  
+        -webkit-box-orient: vertical; 
+        overflow: hidden;   
+        -webkit-line-clamp: 2;       
+    }
+
+    .information > h5{
+        height: fit-content;
+        display: -webkit-box;  
+        -webkit-box-orient: vertical; 
+        overflow: hidden;   
+        -webkit-line-clamp: 5;
+    }
+
+    .teams > h5 {
+        height: fit-content;
+        display: -webkit-box;  
+        -webkit-box-orient: vertical; 
+        overflow: hidden;   
+        -webkit-line-clamp: 2;
+    }
+}
