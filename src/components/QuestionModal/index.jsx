@@ -28,7 +28,7 @@ const QuestionModal = ({title, buttonFunction, buttonName}) => {
 
   return (
     <div>
-      <button onClick={handleOpen}>abrir</button>
+      
       <Modal
         open={open}
         onClose={handleClose}
