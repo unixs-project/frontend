@@ -12,10 +12,22 @@
 
 .cardsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 4rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 4rem;
   gap: 2rem;
-  align-items: center;
-  margin: 12rem 0 0 8rem;
+  margin-top: 12rem;
+
+  @media (min-width: 1980px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @media (max-width: 1420px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 980px) {
+    grid-template-columns: 1fr;
+    padding: 2rem 4rem;
+  }
 }
 
