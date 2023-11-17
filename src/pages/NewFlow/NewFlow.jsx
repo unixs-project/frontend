@@ -19,7 +19,6 @@ import { Header } from '../../components/Header'
 import style from './styles.module.css'
 import QuestionModal from '../../components/QuestionModal'
 
-
 export function NewFlow() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
@@ -76,12 +75,17 @@ export function NewFlow() {
             placeholder='Título do fluxo aqui...'
             InputProps={{
               disableUnderline: true,
+              style: {
+                fontSize: 38,
+               
+              }
             }}
-            style={{
+            sx={{
               width: '100%',
-              height: '2.875rem',
+              height: 'auto',
               margin: '2.375rem 0 0.875rem',
             }}
+            InputLabelProps={{style: {fontSize: 40}}} 
           />
           <TextField
             id="outlined-multiline-flexible"
@@ -91,11 +95,14 @@ export function NewFlow() {
             placeholder='Nome da(s) equipe(s)'
             InputProps={{
               disableUnderline: true,
+              style: {
+                fontSize: 24
+              }
             }}
-            style={{
+            sx={{
               width: '100%',
               height: '2.875rem',
-              marginBottom: '0.875rem'
+              marginBottom: '0.875rem',
             }}
           />
             {editor && (
