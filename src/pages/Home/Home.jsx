@@ -6,10 +6,13 @@ import { FlowData } from "../../services/flowData";
 import styles from './styles.module.css'
 import { TeamData } from "../../services/teamData";
 import { Autocomplete, Button, Stack, TextField, createFilterOptions } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
   const [isFlowSearch, setIsFlowSearch] = useState(true)
   const [isTeamSearch, setIsTeamSearch] = useState(false)
+
+  const navigate = useNavigate()
 
   const activeButtonStyle = {
     backgroundColor: '#21409A',
@@ -24,6 +27,10 @@ export function Home() {
   const handleDisplayTeams = () => {
     setIsFlowSearch(false)
     setIsTeamSearch(true)
+  }
+
+  const handleCreateNewFlowRedirect = () => {
+    navigate('/new-flow')
   }
 
   const renderFlowCards = () => {
@@ -95,6 +102,7 @@ export function Home() {
           />
         </Stack>
       </div>
+      <Button variant="outlined" onClick={handleCreateNewFlowRedirect} style={{position: 'relative', float: 'right', margin: '4rem 6rem 0 0'}}>Criar fluxo</Button>
       <div className={styles.cardsGrid}>
         {renderFlowCards()}
         {renderTeamCards()}
