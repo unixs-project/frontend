@@ -1,0 +1,27 @@
+.newFlowContainer {
+  padding: 2.5rem 8.125rem 0;
+}
+
+.iconsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.editorContainer {
+  margin-top: 16px;
+  font-size: 1.125rem;
+  > div:focus {
+    outline: none;
+  }
+}
+
+/* .MuiTextField-root {
+  font-size: 2.285rem !important;
+} */
