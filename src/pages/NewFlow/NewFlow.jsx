@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
@@ -16,9 +17,14 @@ import StarterKit from '@tiptap/starter-kit';
 
 import { Header } from '../../components/Header'
 import style from './styles.module.css'
+import QuestionModal from '../../components/QuestionModal'
 
 
 export function NewFlow() {
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [modalTitle, setModalTitle] = useState('')
+  const [buttonLabel, setButtonLabel] = useState('')
+
   const navigate = useNavigate()
 
   const editor = useEditor({
@@ -31,6 +37,27 @@ export function NewFlow() {
   const handleRedirectToHome = () => {
     return navigate('/home')
   }
+
+  const handleSaveFlow = () => {
+    setModalTitle('Você deseja salvar esse fluxo?')
+    setButtonLabel('Salvar')
+    setModalOpen(true);
+  }
+
+  console.log(modalTitle)
+
+  const handleDeleteFlow = () => {
+    setModalTitle('Você tem certeza que deseja excluir esse fluxo?')
+    setButtonLabel('Excluir')
+    setModalOpen(true);
+  }
+
+  // Function to handle the button inside the modal
+  const handleConfirmationButtonClick = () => {
+    // Add your logic here when the button inside the modal is clicked
+    // For example, you can perform some action or close the modal
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -100,13 +127,18 @@ export function NewFlow() {
                   />
                 </div>
                 <div>
-                  <DeleteOutlineOutlinedIcon variant="outlined" style={{ width: '30px', height: '30px', color: '#FE4900' }} />
+                  <DeleteOutlineOutlinedIcon 
+                    variant="outlined"
+                    style={{ width: '30px', height: '30px', color: '#FE4900' }} 
+                    onClick={handleDeleteFlow}
+                    />
                   <Button 
                     variant="outlined" 
                     style={{
                       color: '#FE4900',                 
                       border: '1px solid #FE4900'
-                    }} 
+                    }}
+                    onClick={handleSaveFlow} 
                   >
                     Salvar fluxo
                   </Button>
@@ -124,6 +156,13 @@ export function NewFlow() {
             )}
             <EditorContent editor={editor}  className={style.editorContainer}/>
         </div>
+        <QuestionModal
+          title={modalTitle}
+          buttonName={buttonLabel}
+          handleConfirmationButtonClick={handleConfirmationButtonClick}
+          isOpen={isModalOpen}
+          handleClose={() => setModalOpen(false)}
+        />
       </div>
     </>
   )
