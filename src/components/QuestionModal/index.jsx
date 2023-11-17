@@ -20,17 +20,11 @@ const style = {
   p: 2,
 };
 
-const QuestionModal = ({title, buttonFunction, buttonName}) => {
-    
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+const QuestionModal = ({isOpen, title, handleConfirmationButtonClick, buttonName, handleClose}) => {
   return (
     <div>
-      
       <Modal
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -40,7 +34,7 @@ const QuestionModal = ({title, buttonFunction, buttonName}) => {
             {title}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: 14 }}>
-            <Button variant='text' onClick={buttonFunction} >{buttonName}</Button>
+            <Button variant='text' onClick={handleConfirmationButtonClick} >{buttonName}</Button>
             <Button variant='text' onClick={handleClose} >Cancelar</Button>
           </Typography>
         </Box>
