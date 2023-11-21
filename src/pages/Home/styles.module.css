@@ -10,6 +10,13 @@
   gap: 22px;
 }
 
+
+.createFlowButtonContainer{
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
