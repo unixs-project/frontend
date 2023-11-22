@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import styles from './styles.module.css'
 import { useNavigate } from 'react-router-dom'
+import { login } from '../../services/api'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -14,21 +15,19 @@ export function LoginForm() {
   const isEmailValid = email !== '' && emailRegex.test(email)
   const isPasswordValid = password !== '' && passwordRegex.test(password)
 
-  const handleEmailValidation = (email) => {
-    setEmail(email)
-  }
-
-  const handlePasswordValidation = (password) => {
-    setPassword(password)
-  }
-
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async(e) => {
     e.preventDefault()
-  }
-  const handleUserLogin = () => {
+
+    const userLoginData = {
+      email,
+      password
+    }
+    
     if (!isEmailValid || !isPasswordValid) {
       return alert('email ou senha inválidos')
     }
+
+    await login(userLoginData)
 
     return navigate('/home')
   }
@@ -45,7 +44,7 @@ export function LoginForm() {
           variant='standard'
           margin='dense'
           value={email}
-          onChange={(e) => handleEmailValidation(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           error={!isEmailValid && email !== ''}
           helperText={!isEmailValid && email !== '' ? 'email inválido' : ''}
         />
@@ -56,7 +55,7 @@ export function LoginForm() {
           variant='standard'
           margin='dense'
           value={password}
-          onChange={(e) => handlePasswordValidation(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           error={!isPasswordValid && password !== ''}
           helperText={!isPasswordValid && password !== '' ? 'senha inválida' : ''}
         />
@@ -66,7 +65,7 @@ export function LoginForm() {
         <Button
           variant='contained'
           style={{backgroundColor: '#21409A', marginBottom: '24px'}}
-          onClick={handleUserLogin}
+          type='submit'
         >
           Entrar
         </Button>

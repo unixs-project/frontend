@@ -4,10 +4,13 @@ import { Button, TextField } from '@mui/material'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 import styles from './styles.module.css'
+import { createUser } from '../../services/api';
 
 export function RegisterForm() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
   
   const navigate = useNavigate()
 
@@ -17,17 +20,20 @@ export function RegisterForm() {
   const isEmailValid = email !== '' && !emailRegex.test(email)
   const isPasswordValid = password !== '' && !passwordRegex.test(password)
 
-  const handleEmailValidation = (email) => {
-    setEmail(email)
-  }
-
-  const handlePasswordValidation = (password) => {
-    setPassword(password)
-  }
-
-
   const handleRedirectToLogin = () => {
     navigate('/')
+  }
+
+  const handleRegisterUser = async (e) => {
+    e.preventDefault()
+    const newUser = {
+      name,
+      email,
+      password,
+      passwordConfirmation
+    }
+
+    await createUser(newUser)
   }
 
   return (
@@ -35,13 +41,15 @@ export function RegisterForm() {
       <ArrowBackOutlinedIcon onClick={handleRedirectToLogin} style={{cursor: 'pointer'}}/>
       <h1 className={styles.title}>Cadastro</h1>
       <p className={styles.subtitle}>Preencha os campos abaixo com as informações solicitadas.</p>
-      <form action='' className={styles.form}>
+      <form action='' className={styles.form} onSubmit={handleRegisterUser}>
         <TextField
           label="Nome"
-          type="email"
+          type="text"
           autoComplete="current-email"
           variant="standard"
           margin='dense'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <TextField
           label="Email"
@@ -50,7 +58,7 @@ export function RegisterForm() {
           variant="standard"
           margin='dense'
           value={email}
-          onChange={(e) => handleEmailValidation(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           error={isEmailValid}
           helperText={isEmailValid ? 'email inválido' : ''}
         />
@@ -61,7 +69,7 @@ export function RegisterForm() {
           variant="standard"
           margin='dense'
           value={password}
-          onChange={(e) => handlePasswordValidation(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           error={isPasswordValid}
           helperText={isPasswordValid ? 'senha inválida' : ''}
         />
@@ -71,8 +79,10 @@ export function RegisterForm() {
           autoComplete="current-password"
           variant="standard"
           margin='dense'
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
-        <Button variant='contained' style={{backgroundColor: '#21409A', marginTop: '24px'}}>
+        <Button variant='contained' style={{backgroundColor: '#21409A', marginTop: '24px'}} type='submit'>
           Solicitar cadastro
         </Button>
       </form>

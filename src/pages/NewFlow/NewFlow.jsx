@@ -18,11 +18,15 @@ import StarterKit from '@tiptap/starter-kit';
 import { Header } from '../../components/Header'
 import style from './styles.module.css'
 import QuestionModal from '../../components/QuestionModal'
+import { createNewFlow } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 export function NewFlow() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [buttonLabel, setButtonLabel] = useState('')
+  const [title, setTitle] = useState('')
+  const { authToken } = useAuth()
 
   const navigate = useNavigate()
 
@@ -37,13 +41,11 @@ export function NewFlow() {
     return navigate('/home')
   }
 
-  const handleSaveFlow = () => {
+  const handleOpenSaveFlowModal = () => {
     setModalTitle('Você deseja salvar esse fluxo?')
     setButtonLabel('Salvar')
     setModalOpen(true);
   }
-
-  console.log(modalTitle)
 
   const handleDeleteFlow = () => {
     setModalTitle('Você tem certeza que deseja excluir esse fluxo?')
@@ -52,12 +54,21 @@ export function NewFlow() {
   }
 
   // Function to handle the button inside the modal
-  const handleConfirmationButtonClick = () => {
-    // Add your logic here when the button inside the modal is clicked
-    // For example, you can perform some action or close the modal
-    setModalOpen(false);
-  };
+  const handleSaveFlow = async() => {
+    console.log(editor.getHTML())
+    const content = editor.getHTML()
 
+    const newFlow = {
+      title,
+      fatherId: null,
+      html: content
+    }
+    
+    await createNewFlow(newFlow, authToken)
+    setModalOpen(false)
+    alert('Fluxo criado com sucesso!')
+  };
+ 
   return (
     <>
       <Header />
@@ -85,7 +96,9 @@ export function NewFlow() {
               height: 'auto',
               margin: '2.375rem 0 0.875rem',
             }}
-            InputLabelProps={{style: {fontSize: 40}}} 
+            InputLabelProps={{style: {fontSize: 40}}}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <TextField
             id="outlined-multiline-flexible"
@@ -145,7 +158,7 @@ export function NewFlow() {
                       color: '#FE4900',                 
                       border: '1px solid #FE4900'
                     }}
-                    onClick={handleSaveFlow} 
+                    onClick={handleOpenSaveFlowModal} 
                   >
                     Salvar fluxo
                   </Button>
@@ -161,12 +174,15 @@ export function NewFlow() {
                 </div>
               </div>
             )}
-            <EditorContent editor={editor}  className={style.editorContainer}/>
+            <EditorContent 
+              editor={editor}
+              className={style.editorContainer}
+            />
         </div>
         <QuestionModal
           title={modalTitle}
           buttonName={buttonLabel}
-          handleConfirmationButtonClick={handleConfirmationButtonClick}
+          handleConfirmationButtonClick={handleSaveFlow}
           isOpen={isModalOpen}
           handleClose={() => setModalOpen(false)}
         />
