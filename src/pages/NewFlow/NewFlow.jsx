@@ -53,7 +53,7 @@ export function NewFlow() {
   const handleDeleteFlow = () => {
     setModalTitle('Você tem certeza que deseja excluir esse fluxo?')
     setButtonLabel('Excluir')
-    setModalOpen(true);
+    setModalOpen(true)
   }
 
   const [openToast, setOpenToast] = React.useState(false);
@@ -75,7 +75,6 @@ export function NewFlow() {
 
   // Function to handle the button inside the modal
   const handleSaveFlow = async() => {
-    console.log(editor.getHTML())
     const content = editor.getHTML()
 
     const newFlow = {
@@ -91,7 +90,41 @@ export function NewFlow() {
     
   };
 
- 
+  const isEditorContentEmpty = editor?.getHTML() === '<p></p>'
+
+  const saveButtonStyle = 
+    isEditorContentEmpty 
+      ? 
+        {
+          color: '#fe4900b3',                 
+          border: '1px solid #fe4900b3',
+          backgroundColor: 'transparent',
+          pointerEvents: 'auto',
+          cursor: 'not-allowed',
+        } 
+      : 
+        {
+          color: '#FE4900',                 
+          border: '1px solid #FE4900'
+        }
+
+  const addFlowButtonStyle = 
+    isEditorContentEmpty 
+      ? 
+        {
+          color: '#fff',                 
+          border: '1px solid #fe4900cc',
+          backgroundColor: '#fe4900cc',
+          pointerEvents: 'auto',
+          cursor: 'not-allowed',
+        } 
+      : 
+        {
+          color: '#fff',                 
+          border: '1px solid #FE4900',
+          backgroundColor: '#FE4900',
+        }
+  
   return (
     <>
       <Header />
@@ -177,20 +210,16 @@ export function NewFlow() {
                     />
                   <Button 
                     variant="outlined" 
-                    style={{
-                      color: '#FE4900',                 
-                      border: '1px solid #FE4900'
-                    }}
-                    onClick={handleOpenSaveFlowModal} 
+                    style={saveButtonStyle}
+                    onClick={handleOpenSaveFlowModal}
+                    disabled={isEditorContentEmpty}
                   >
                     Salvar fluxo
                   </Button>
                   <Button 
                     variant="outlined" 
-                    style={{
-                      color: '#FE4900',                 
-                      border: '1px solid #FE4900'
-                    }} 
+                    style={addFlowButtonStyle} 
+                    disabled={isEditorContentEmpty}
                   >
                     Adicionar fluxo
                   </Button>
