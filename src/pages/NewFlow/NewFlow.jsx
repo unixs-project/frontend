@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
@@ -11,6 +12,8 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -53,6 +56,23 @@ export function NewFlow() {
     setModalOpen(true)
   }
 
+  const [openToast, setOpenToast] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState('');
+  const [toastSeverity, setToastSeverity] = React.useState('success');
+
+  const handleOpenToast = (message, severity) => {
+    setToastMessage(message);
+    setToastSeverity(severity);
+    setOpenToast(true);
+  };
+
+  const handleCloseToast = (reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenToast(false);
+  };
+
   // Function to handle the button inside the modal
   const handleSaveFlow = async() => {
     const content = editor.getHTML()
@@ -63,9 +83,11 @@ export function NewFlow() {
       html: content
     }
     
-    await createNewFlow(newFlow, authToken)
-    setModalOpen(false)
-    alert('Fluxo criado com sucesso!')
+    
+      await createNewFlow(newFlow, authToken);
+      setModalOpen(false);
+      handleOpenToast('Fluxo salvo com sucesso!', 'success');
+    
   };
 
   const isEditorContentEmpty = editor?.getHTML() === '<p></p>'
@@ -102,7 +124,7 @@ export function NewFlow() {
           border: '1px solid #FE4900',
           backgroundColor: '#FE4900',
         }
-        
+  
   return (
     <>
       <Header />
@@ -216,6 +238,21 @@ export function NewFlow() {
           isOpen={isModalOpen}
           handleClose={() => setModalOpen(false)}
         />
+                <Snackbar
+          open={openToast}
+          autoHideDuration={6000}
+          onClose={handleCloseToast}
+        >
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            onClose={handleCloseToast}
+            severity={toastSeverity}
+            sx={{ width: '100%' }}
+          >
+            {toastMessage}
+          </MuiAlert>
+        </Snackbar>
       </div>
     </>
   )
