@@ -95,7 +95,7 @@ export function NewFlow() {
     await createNewFlow(newFlow, authToken)
     setModalOpen(false)
     handleOpenToast('Fluxo salvo com sucesso!', 'success');
-    
+
   };
 
   const handleAddExistingFlow = () => {
@@ -104,7 +104,7 @@ export function NewFlow() {
     setModalOpen(false)
     setAddExistingFlowOpen(false)
 
-    alert('Fluxo adicionado com sucesso!')
+    handleOpenToast('Fluxo adicionado com sucesso!', 'success');
   };
 
   const deleteFlow = () => {
@@ -113,7 +113,7 @@ export function NewFlow() {
     setModalOpen(false)
 
 
-    alert('Fluxo deletado com sucesso!')
+    handleOpenToast('Fluxo deletado com sucesso!', 'success');
   };
 
 
