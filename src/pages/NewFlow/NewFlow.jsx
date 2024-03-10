@@ -23,13 +23,16 @@ import style from './styles.module.css'
 import QuestionModal from '../../components/QuestionModal'
 import { createNewFlow } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import AddExistingFlow from '../../components/AddExistingFlow';
 
 export function NewFlow() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [buttonLabel, setButtonLabel] = useState('')
   const [title, setTitle] = useState('')
+  const [isAddExistingFlowOpen, setAddExistingFlowOpen] = useState(false)
   const { authToken } = useAuth()
+  const [selectedFlow, setSelectedFlow] = useState(null);
 
   const navigate = useNavigate()
 
@@ -50,7 +53,13 @@ export function NewFlow() {
     setModalOpen(true);
   }
 
-  const handleDeleteFlow = () => {
+  const handleAddFlowModal = () => {
+    setModalTitle('Você Adicionar esse fluxo existente?')
+    setButtonLabel('Adicionar')
+    setModalOpen(true);
+  }
+
+  const handleDeleteFlowModal = () => {
     setModalTitle('Você tem certeza que deseja excluir esse fluxo?')
     setButtonLabel('Excluir')
     setModalOpen(true)
@@ -82,49 +91,67 @@ export function NewFlow() {
       fatherId: null,
       html: content
     }
-    
-    
-      await createNewFlow(newFlow, authToken);
-      setModalOpen(false);
-      handleOpenToast('Fluxo salvo com sucesso!', 'success');
-    
+
+    await createNewFlow(newFlow, authToken)
+    setModalOpen(false)
+    handleOpenToast('Fluxo salvo com sucesso!', 'success');
+
   };
+
+  const handleAddExistingFlow = () => {
+    console.log('teste AddNewFlow')
+
+    setModalOpen(false)
+    setAddExistingFlowOpen(false)
+
+    handleOpenToast('Fluxo adicionado com sucesso!', 'success');
+  };
+
+  const deleteFlow = () => {
+    console.log('teste delete')
+
+    setModalOpen(false)
+
+
+    handleOpenToast('Fluxo deletado com sucesso!', 'success');
+  };
+
 
   const isEditorContentEmpty = editor?.getHTML() === '<p></p>'
 
-  const saveButtonStyle = 
-    isEditorContentEmpty 
-      ? 
-        {
-          color: '#fe4900b3',                 
-          border: '1px solid #fe4900b3',
-          backgroundColor: 'transparent',
-          pointerEvents: 'auto',
-          cursor: 'not-allowed',
-        } 
-      : 
-        {
-          color: '#FE4900',                 
-          border: '1px solid #FE4900'
-        }
+  const saveButtonStyle =
+    isEditorContentEmpty
+      ?
+      {
+        color: '#fe4900b3',
+        border: '1px solid #fe4900b3',
+        backgroundColor: 'transparent',
+        pointerEvents: 'auto',
+        cursor: 'not-allowed',
+      }
+      :
+      {
+        color: '#FE4900',
+        border: '1px solid #FE4900'
+      }
 
-  const addFlowButtonStyle = 
-    isEditorContentEmpty 
-      ? 
-        {
-          color: '#fff',                 
-          border: '1px solid #fe4900cc',
-          backgroundColor: '#fe4900cc',
-          pointerEvents: 'auto',
-          cursor: 'not-allowed',
-        } 
-      : 
-        {
-          color: '#fff',                 
-          border: '1px solid #FE4900',
-          backgroundColor: '#FE4900',
-        }
-  
+  const addFlowButtonStyle =
+    isEditorContentEmpty
+      ?
+      {
+        color: '#fff',
+        border: '1px solid #fe4900cc',
+        backgroundColor: '#fe4900cc',
+        pointerEvents: 'auto',
+        cursor: 'not-allowed',
+      }
+      :
+      {
+        color: '#fff',
+        border: '1px solid #FE4900',
+        backgroundColor: '#FE4900',
+      }
+
   return (
     <>
       <Header />
@@ -134,7 +161,7 @@ export function NewFlow() {
           style={{ cursor: 'pointer' }}
         />
         <div>
-           <TextField
+          <TextField
             id="outlined-multiline-flexible"
             variant='standard'
             multiline
@@ -144,7 +171,7 @@ export function NewFlow() {
               disableUnderline: true,
               style: {
                 fontSize: 38,
-               
+
               }
             }}
             sx={{
@@ -152,7 +179,7 @@ export function NewFlow() {
               height: 'auto',
               margin: '2.375rem 0 0.875rem',
             }}
-            InputLabelProps={{style: {fontSize: 40}}}
+            InputLabelProps={{ style: { fontSize: 40 } }}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -174,22 +201,23 @@ export function NewFlow() {
               marginBottom: '0.875rem',
             }}
           />
-            {editor && (
+          {editor && (
+            <>
               <div className={style.iconsContainer}>
                 <div>
                   <ImageOutlinedIcon style={{ color: '#21409A', background: '#21409A15', padding: '0.5rem 1.125rem', borderRadius: '4px' }} />
                   <AttachFileOutlinedIcon
                     style={{
                       background: '#09E85E15',
-                      padding: '0.5rem 1.125rem', 
+                      padding: '0.5rem 1.125rem',
                       borderRadius: '4px'
-                    }} 
+                    }}
                   />
-                  <FormatListBulletedIcon 
+                  <FormatListBulletedIcon
                     onClick={() => editor.chain().focus().toggleBulletList().run()}
                     style={{ transform: 'scale(1.2)' }}
                   />
-                  <FormatBoldIcon 
+                  <FormatBoldIcon
                     onClick={() => editor.chain().focus().toggleBold().run()}
                     style={{ transform: 'scale(1.2)' }}
                   />
@@ -203,42 +231,54 @@ export function NewFlow() {
                   />
                 </div>
                 <div>
-                  <DeleteOutlineOutlinedIcon 
+                  <DeleteOutlineOutlinedIcon
                     variant="outlined"
-                    style={{ width: '30px', height: '30px', color: '#FE4900' }} 
-                    onClick={handleDeleteFlow}
-                    />
-                  <Button 
-                    variant="outlined" 
+                    style={{ width: '30px', height: '30px', color: '#FE4900' }}
+                    onClick={handleDeleteFlowModal}
+                  />
+                  <Button
+                    variant="outlined"
                     style={saveButtonStyle}
                     onClick={handleOpenSaveFlowModal}
                     disabled={isEditorContentEmpty}
                   >
                     Salvar fluxo
                   </Button>
-                  <Button 
-                    variant="outlined" 
-                    style={addFlowButtonStyle} 
+                  <Button
+                    variant="outlined"
+                    onClick={() => setAddExistingFlowOpen(true)}
+                    style={addFlowButtonStyle}
                     disabled={isEditorContentEmpty}
                   >
                     Adicionar fluxo
                   </Button>
                 </div>
-              </div>
-            )}
-            <EditorContent 
-              editor={editor}
-              className={style.editorContainer}
-            />
+              </div>              
+            </>
+          )}
+          <EditorContent
+            editor={editor}
+            className={style.editorContainer}
+          />
         </div>
         <QuestionModal
           title={modalTitle}
           buttonName={buttonLabel}
-          handleConfirmationButtonClick={handleSaveFlow}
+          handleConfirmationButtonClick={
+            buttonLabel === 'Salvar' ? handleSaveFlow :
+              buttonLabel === 'Adicionar' ? handleAddExistingFlow : deleteFlow}
           isOpen={isModalOpen}
           handleClose={() => setModalOpen(false)}
         />
-                <Snackbar
+
+        <AddExistingFlow
+          isOpen={isAddExistingFlowOpen}
+          handleClose={() => setAddExistingFlowOpen(false)}
+          openSaveModal={handleAddFlowModal}
+          selectedFlow={selectedFlow}
+          setSelectedFlow={setSelectedFlow}
+        />
+        <Snackbar
           open={openToast}
           autoHideDuration={6000}
           onClose={handleCloseToast}
