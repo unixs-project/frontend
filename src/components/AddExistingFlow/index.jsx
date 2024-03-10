@@ -42,6 +42,7 @@ const AddExistingFlow = ({ isOpen, handleClose, openSaveModal, selectedFlow, set
     const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     
+    const isSelectedFlowEmpty = selectedFlow === null;
     const FlowList = FlowData.filter((flow) => {
         return flow.name.toLowerCase().includes(search.toLowerCase())
     });
@@ -102,7 +103,7 @@ const AddExistingFlow = ({ isOpen, handleClose, openSaveModal, selectedFlow, set
                     <Box sx={searchContainer}>
                         <TextField id="outlined-search" label="Pesquisa de fluxo" value={search} type="search" onChange={(e) => handleSearch(e)} />
                         <Box sx={{ display: 'flex', gap: '20px' }}>
-                            <Button variant='outlined' onClick={checkFlowSelection}>Adicionar</Button>
+                            <Button disabled={isSelectedFlowEmpty} variant='outlined' onClick={checkFlowSelection}>Adicionar</Button>
                             <Button variant='contained' onClick={resetStatesAndClose}>Cancelar</Button>
                         </Box>
                     </Box>
